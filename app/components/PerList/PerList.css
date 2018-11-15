@@ -1,0 +1,47 @@
+
+.film-ul{
+    margin-top: 20px;    
+    padding: 0 15px;
+}
+
+.film-ul li{
+    margin-bottom: 20px;
+    height: 130px;
+    overflow: hidden;
+    border-bottom: 1px solid #DCDCDC;
+}
+.film-ul li:last-child{
+    border-bottom: none;
+}
+.film-ul li .film-img{
+    width: 22%;
+    float: left;
+}
+
+.film-ul li .film-img img{
+    border-radius: 4px;
+}
+
+.film-ul li .film-intro{
+    float: left;
+    width: 70%;
+    margin-left: 3%;
+}
+
+.film-intro h1{
+    font-size: 18px;
+}
+.film-intro h1 span{
+    color: #666;
+}
+.film-intro .film-rating{
+    font-size: 14px;
+    color: #999;
+    margin: 5px 0;
+}
+.film-intro .film-detail{
+    font-size: 14px;
+    color: #666;
+}
+
+

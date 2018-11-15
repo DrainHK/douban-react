@@ -1,0 +1,16 @@
+.movie-ul{
+    margin: 10px 0;
+    display: flex;
+    padding: 10px;
+}
+.movie-item{
+    width: 20%;
+    flex: 1;
+    margin-right: 5px;
+    text-align: center;
+    font-size: 12px;
+}
+.movie-item img{
+    height: 120px;
+    margin-bottom: 5px;
+}
