@@ -12,14 +12,17 @@ class List extends React.Component{
     constructor(props){
         super(props);
         this.pageNo = 1;
-        this.state = {
-            title: ''
-        }
-        
+        this.title = '';
+        this.showMore = this.showMore.bind(this);
+        this.setReqData = this.setReqData.bind(this);
     }
     componentWillMount(){
         let {state, dispatch, params} = this.props;
         let reqData = this.setReqData(1);
+        dispatch(actions.getMoreList(reqData));
+    }
+    showMore(reqData){
+        let {state, dispatch, params } = this.props;
         dispatch(actions.getMoreList(reqData));
     }
     setReqData(page){
@@ -29,32 +32,29 @@ class List extends React.Component{
         switch(params.type){
             case 'showing':
                 reqData.url = '/api/movie/in_theaters';
-                this.setState({
-                    title: '正在上映的电影'
-                });
+                this.title = '正在上映的电影';
                 break;
             case 'coming':
                 reqData.url = '/api/movie/coming_soon';
-                this.setState({
-                    title: '即将上映的电影'
-                });
+                this.title = '即将上映的电影';
                 break;
             case 'top':
                 reqData.url = '/api/movie/top250'
-                this.setState({
-                    title: '豆瓣Top250'
-                });
+                this.title = '豆瓣Top250';
                 break;
         }
         return reqData;
     }
     render(){
         let {state} = this.props;
-        let moreList = state.moreList;
+        let moreList = state.moreList || [];
+        let totalPage = state.totalPage || 0;
+        let isFetching = state.isFetching;
         return (
             <div className="film-list">
-                <h1 className="list-title">{this.state.title}</h1>       
-                <PerList listDatas={moreList}/>
+                <h1 className="list-title">{this.title}</h1>
+                <PerList listDatas={moreList} setReqData={this.setReqData} showMore={this.showMore} totalPage={totalPage} />
+                {isFetching ? (<div className="loading">火速加载中...</div>) : ''}
             </div>
         )
     }

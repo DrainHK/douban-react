@@ -1,10 +1,16 @@
 import React from 'react'
 import { Link } from 'react-router'
+import PropTypes from 'prop-types';
+
 import "./PerList.css"
+import { prototype } from 'stream';
 class PerList extends React.Component{
     constructor(props){
         super(props);
         this.pageNo = 1;
+        this.state = {
+            isShowMore: true
+        }
         this.handleScroll = this.handleScroll.bind(this);
     }
     componentWillMount(){
@@ -14,23 +20,32 @@ class PerList extends React.Component{
         document.removeEventListener('scroll',this.handleScroll);
     }
     handleScroll(){
-        let scrollTop = document.body.scrollTop;    
+        let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;    //没指定DOCTYPE时，使用document.body
         let rootEle = document.getElementById('app');
         let bodyHeight = rootEle.clientHeight;      //根元素内容高度
         let screenHeight = window.screen.height;     //手机屏幕高度
-
         if(screenHeight + scrollTop >= bodyHeight){
+            console.log('more');        //加载了两次
             this.getMoreDatas();
         }
 
-
     }
     getMoreDatas(){
-
+        let { totalPage, setReqData, showMore } = this.props;
+        this.pageNo ++;
+        if(totalPage < this.pageNo){
+            this.setState({
+                isShowMore: false
+            });
+            return;
+        }
+        let reqData = setReqData(this.pageNo);
+        showMore(reqData);
     }
 
     render(){
         let listDatas = this.props.listDatas;
+        const isShowMore = this.state.isShowMore;
         return(
             <ul className="film-ul">
                 {
@@ -62,6 +77,7 @@ class PerList extends React.Component{
                         )
                     })
                 }
+                {!isShowMore ? (<div className="no-datas">没有更多了...</div>) : ''}
             </ul>
         )
     }
@@ -69,6 +85,11 @@ class PerList extends React.Component{
 PerList.defaultProps = {
     totalPage: 0,
     listDatas: []
+}
+PerList.PropTypes = {
+    totalPage: PropTypes.number.isRequired,
+    setReqData: PropTypes.func.isRequired,
+    showMore: PropTypes.func.isRequired
 }
 
 export default PerList

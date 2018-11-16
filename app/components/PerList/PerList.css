@@ -3,7 +3,12 @@
     margin-top: 20px;    
     padding: 0 15px;
 }
-
+.film-ul .no-datas{
+    text-align: center;
+    color: #999;
+    font-size: 12px;
+    padding-bottom: 10px;
+}
 .film-ul li{
     margin-bottom: 20px;
     height: 130px;
@@ -12,6 +17,7 @@
 }
 .film-ul li:last-child{
     border-bottom: none;
+    margin-bottom: 0;
 }
 .film-ul li .film-img{
     width: 22%;
