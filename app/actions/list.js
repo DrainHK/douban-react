@@ -14,6 +14,7 @@ let list = {
         if(!getState().isFetching){
             dispatch(list.requestData(pageNo));
             request.get(options.url, {start: start, count: count}).then((res)=>{
+                console.log('request')
                 dispatch(list.hasGetMoreList(res))
             })
         }

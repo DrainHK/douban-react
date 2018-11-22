@@ -25,7 +25,7 @@ class PerList extends React.Component{
         let bodyHeight = rootEle.clientHeight;      //根元素内容高度
         let screenHeight = window.screen.height;     //手机屏幕高度
         if(screenHeight + scrollTop >= bodyHeight){
-            console.log('more');        //加载了两次
+            console.log('more');        //加载了两次?
             this.getMoreDatas();
         }
 
@@ -89,7 +89,13 @@ PerList.defaultProps = {
 PerList.PropTypes = {
     totalPage: PropTypes.number.isRequired,
     setReqData: PropTypes.func.isRequired,
-    showMore: PropTypes.func.isRequired
+    showMore: PropTypes.func.isRequired,
+    listData: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        images: PropTypes.object.isRequired,
+        title: PropTypes.string.isRequired,
+        rating: PropTypes.object.isRequired,
+      }).isRequired).isRequired
 }
 
 export default PerList
